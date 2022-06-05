@@ -34,20 +34,15 @@ const swaggerUI = require('swagger-ui-express')
 //app.use("/docs",swaggerUI.serve, swaggerUI.setup(swaggerJSON))//dari swagger langsung edit manual
 app.use('/docs', swaggerUI.serve, swaggerUI.setup(swaggerDocument))//dari postman generate
 
-app.use(bodyParser.urlencoded({ extended: false, limit: '50mb' }));
+app.use(bodyParser.urlencoded({ extended: false,limit: '50mb' }));
 app.use(express.json({ limit: '50mb' }));
 
 app.use(flash());
 app.use(session({
-  cookie: {
-    secure: true,
-    maxAge: 60000
-  },
   secret: process.env.SESSION_SECRET,
-  saveUninitialized: true,
-  resave: false
-}));
-
+  resave: false,
+  saveUninitialized: true
+}))
 app.use(passport.initialize())
 app.use(passport.session())
 
@@ -60,12 +55,12 @@ app.set("view engine", "ejs");
 //custom morgan
 const originalSend = app.response.send
 
-let log_name = '/logs/access_log_' + moment().format('YYYY_MM_DD') + '.log';
+let log_name = '/logs/access_log_'+moment().format('YYYY_MM_DD')+'.log';
 let accessLogStream = fs.createWriteStream(path.join(__dirname, log_name), { flags: 'a' })
 
 app.response.send = function sendOverWrite(body) {
-  originalSend.call(this, body)
-  this.resBody = body
+    originalSend.call(this, body)
+    this.resBody = body
 }
 
 app.use(morgan(':remote-addr - :remote-user [:date[clf]] ":method :url HTTP/:http-version" :status :res[content-length]', {
@@ -73,15 +68,15 @@ app.use(morgan(':remote-addr - :remote-user [:date[clf]] ":method :url HTTP/:htt
 }))
 
 morgan.token('res-body', (req, res) => {
-  if (res.getHeader('Content-Type') == 'application/json; charset=utf-8') {
-    if (typeof res.resBody == 'string') {
-      return res.resBody
-    } else {
-      return JSON.stringify(res.resBody)
-    }
+  if(res.getHeader('Content-Type') == 'application/json; charset=utf-8'){
+      if(typeof res.resBody == 'string'){
+          return res.resBody        
+      }else{
+          return JSON.stringify(res.resBody)      
+      }
   }
   return JSON.stringify({
-    'message': 'Accessing View'
+      'message': 'Accessing View'
   })
 })
 
@@ -92,7 +87,7 @@ app.use(AuthviewRouter);
 
 // handler for path 404 not found page
 app.use((req, res, next) => {
-  res.status(404).render("errors/404");
+    res.status(404).render("errors/404");
 });
 
 //app.listen(port, () => console.log(`Server Connent, run on port http://localhost:${port}`));

@@ -1,4 +1,5 @@
 'use strict';
+const { faker } = require("@faker-js/faker");
 const bcrypt = require("bcryptjs");
 const { v4: uuidv4 } = require('uuid')
 

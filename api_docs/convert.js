@@ -1,6 +1,6 @@
 const postmanToOpenApi = require('postman-to-openapi')
 
-const postmanCollection = './APIGAMESCH8.postman_collection.json'
+const postmanCollection = './APIGAMESCH08.postman_collection.json'
 const outputFile = './collection.yaml'
 
 postmanToOpenApi(postmanCollection, outputFile, { defaultTag: 'General' }).then(result => {
