@@ -88,3 +88,8 @@
 ::1 - - [05/Jun/2022:06:58:42 +0000] "GET /google HTTP/1.1" 302 0
 ::1 - - [05/Jun/2022:06:59:09 +0000] "GET /google/callback?code=4%2F0AX4XfWjsvxIAGPuZ5ThO17FYT_JM3YS6DkKIthIp2l0pOKe1f9_vC1RfGqV_O96hGutzZA&scope=email+profile+https%3A%2F%2Fwww.googleapis.com%2Fauth%2Fuserinfo.email+https%3A%2F%2Fwww.googleapis.com%2Fauth%2Fuserinfo.profile+openid&authuser=1&prompt=consent HTTP/1.1" 302 64
 ::1 - - [05/Jun/2022:06:59:09 +0000] "GET /dashboard HTTP/1.1" 200 8279
+::1 - - [05/Jun/2022:07:24:10 +0000] "GET /api/v1/user-games-history HTTP/1.1" 401 53
+::1 - - [05/Jun/2022:07:24:21 +0000] "POST /api/v1/login HTTP/1.1" 200 60
+::1 - - [05/Jun/2022:07:24:27 +0000] "POST /api/v1/register HTTP/1.1" 201 423
+::1 - - [05/Jun/2022:07:24:33 +0000] "POST /api/v1/login HTTP/1.1" 200 365
+::1 - - [05/Jun/2022:07:24:46 +0000] "GET /api/v1/user-games-history HTTP/1.1" 200 74

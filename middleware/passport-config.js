@@ -10,7 +10,7 @@ const GoogleStrategy = require('passport-google-oauth2').Strategy;
 
 const GOOGLE_CLIENT_ID = process.env.GOOGLE_CLIENT_ID;
 const GOOGLE_CLIENT_SECRET = process.env.GOOGLE_CLIENT_SECRET;
-const callbackURL_GOOGLE = "http://localhost:3000/google/callback" || "https://bejs-chapter08.herokuapp.com/google/callback";
+const callbackURL_GOOGLE = "https://bejs-chapter08.herokuapp.com/google/callback";
 //const callbackURL_GOOGLE = process.env.HOST;
 
 passport.use(new GoogleStrategy({
