@@ -66,3 +66,16 @@
 ::1 - - [05/Jun/2022:03:57:44 +0000] "GET /dashboard HTTP/1.1" 200 8301
 ::1 - - [05/Jun/2022:03:57:47 +0000] "GET /user-games HTTP/1.1" 304 -
 ::1 - - [05/Jun/2022:04:07:12 +0000] "POST /api/v1/login HTTP/1.1" 200 60
+::1 - - [05/Jun/2022:05:41:10 +0000] "GET / HTTP/1.1" 304 -
+::1 - - [05/Jun/2022:05:41:47 +0000] "GET /forgot-password HTTP/1.1" 200 3646
+::1 - - [05/Jun/2022:05:44:06 +0000] "POST /logins HTTP/1.1" 302 54
+::1 - - [05/Jun/2022:05:44:06 +0000] "GET /login HTTP/1.1" 200 6521
+::1 - - [05/Jun/2022:05:44:14 +0000] "GET /forgot-password HTTP/1.1" 304 -
+::1 - - [05/Jun/2022:05:44:19 +0000] "POST /forgot-password HTTP/1.1" 500 3337
+::1 - - [05/Jun/2022:05:44:35 +0000] "GET /dashboard HTTP/1.1" 302 56
+::1 - - [05/Jun/2022:05:44:35 +0000] "GET /login HTTP/1.1" 200 6404
+::1 - - [05/Jun/2022:05:44:40 +0000] "GET /register HTTP/1.1" 304 -
+::1 - - [05/Jun/2022:05:44:51 +0000] "POST /registers HTTP/1.1" 302 54
+::1 - - [05/Jun/2022:05:44:51 +0000] "GET /login HTTP/1.1" 304 -
+::1 - - [05/Jun/2022:05:45:25 +0000] "GET /forgot-password HTTP/1.1" 304 -
+::1 - - [05/Jun/2022:05:45:34 +0000] "POST /forgot-password HTTP/1.1" 200 3732
