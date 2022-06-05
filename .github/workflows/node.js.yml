@@ -1,0 +1,52 @@
+name: Node.js CI
+on:
+  push:
+    branches: [ main ]
+  pull_request:
+    branches: [ main ]
+  workflow_dispatch:
+jobs:
+
+  build:
+    runs-on: ubuntu-latest
+    strategy:
+      matrix:
+        node-version: [12.x, 14.x, 16.x]
+        # See supported Node.js release schedule at https://nodejs.org/en/about/releases/
+    env: 
+      PROD_DB_USERNAME: ${{ secrets.PROD_DB_USERNAME }}
+      PROD_DB_PASSWORD: ${{ secrets.PROD_DB_PASSWORD }}
+      PROD_DB_NAME: ${{ secrets.PROD_DB_NAME }}
+      PROD_DB_HOSTNAME: ${{ secrets.PROD_DB_HOSTNAME }}
+      PROD_DB_PORT: ${{ secrets.PROD_DB_PORT }}
+      PROD_DB_DIALECT: ${{ secrets.PROD_DB_DIALECT }}
+    steps:
+      - uses: actions/checkout@v3
+      - name: Use Node.js ${{ matrix.node-version }}
+        uses: actions/setup-node@v3
+        with:
+          node-version: ${{ matrix.node-version }}
+          cache: 'npm'
+      - name: Install dependencies
+        run: npm install
+      - name: Install sequlize-cli
+        run: npm install sequelize-cli
+      - name: Migrate DB
+        run: npx sequelize db:migrate --env production
+      - name: Seeding DB
+        run: npx sequelize db:seed:all --env production
+      # - name: Test
+      #   run: npm test
+
+  deploy:
+    runs-on: ubuntu-latest
+    needs: [build]
+    env: 
+      ENV_VARIABLE: PROD
+    steps:
+      - uses: actions/checkout@v3
+      - uses: akhileshns/heroku-deploy@v3.12.12
+        with:
+          heroku_api_key: ${{secrets.HEROKU_API_KEY}}
+          heroku_app_name: "bejs-chapter08"
+          heroku_email: ${{secrets.HEROKU_EMAIL}}
