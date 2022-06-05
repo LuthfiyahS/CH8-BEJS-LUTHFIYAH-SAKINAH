@@ -83,3 +83,5 @@
 ::1 - - [05/Jun/2022:06:36:17 +0000] "GET /google HTTP/1.1" 302 0
 ::1 - - [05/Jun/2022:06:36:29 +0000] "GET /google/callback?code=4%2F0AX4XfWgv_-WzIWRc8VGHIBliKA0Iz_ZyQqEZttdCEuYb_t8fy4diF6COKhg2RzmJ_BmXyA&scope=email+profile+https%3A%2F%2Fwww.googleapis.com%2Fauth%2Fuserinfo.email+https%3A%2F%2Fwww.googleapis.com%2Fauth%2Fuserinfo.profile+openid&authuser=5&prompt=consent HTTP/1.1" 302 64
 ::1 - - [05/Jun/2022:06:36:29 +0000] "GET /dashboard HTTP/1.1" 200 8314
+::1 - - [05/Jun/2022:06:57:37 +0000] "GET /dashboard HTTP/1.1" 302 56
+::1 - - [05/Jun/2022:06:57:37 +0000] "GET /login HTTP/1.1" 304 -
