@@ -1,5 +1,4 @@
-/** @format */
-require('dotenv').config();
+require(dotenv).config()
 const { UserGames, UserGamesBiodata, UserGamesHistory } = require('./../models');
 const bcrypt = require("bcryptjs");
 const { v4: uuidv4 } = require('uuid')

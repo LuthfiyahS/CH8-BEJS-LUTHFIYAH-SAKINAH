@@ -18,6 +18,10 @@ jobs:
       PROD_DB_HOSTNAME: ${{ secrets.PROD_DB_HOSTNAME }}
       PROD_DB_PORT: ${{ secrets.PROD_DB_PORT }}
       PROD_DB_DIALECT: ${{ secrets.PROD_DB_DIALECT }}
+      GOOGLE_CLIENT_ID: ${{secrets.GOOGLE_CLIENT_ID}}
+      GOOGLE_CLIENT_SECRET: ${{secrets.GOOGLE_CLIENT_SECRET}}
+      USER_MAIL: ${{secrets.USER_MAIL}}
+      PASSWORD_MAILAPP: ${{secrets.PASSWORD_MAILAPP}}
     steps:
       - uses: actions/checkout@v3
       - name: Use Node.js ${{ matrix.node-version }}
