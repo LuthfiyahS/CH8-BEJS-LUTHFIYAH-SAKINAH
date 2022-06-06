@@ -3,6 +3,45 @@
     <!-- START: Head-->
     <head>
       <%- include('./partials/head'); %>
+      <style>
+                
+        /* Kotak pesan ditampilkan ketika pengguna mengklik kolom password */
+        #message {
+        display:none;
+        background: #f1f1f1;
+        color: #000;
+        position: relative;
+        padding: 20px;
+        margin-top: 10px;
+        }
+
+        #message p {
+        padding: 10px 35px;
+        font-size: 18px;
+        }
+
+        /* Tambahkan warna teks hijau dan tanda centang jika persyaratannya benar */
+        .valid {
+        color: green;
+        }
+
+        .valid:before {
+        position: relative;
+        left: -35px;
+        content: "✔";
+        }
+
+        /* Tambahkan warna teks merah dan "x" jika persyaratannya salah*/
+        .invalid {
+        color: red;
+        }
+
+        .invalid:before {
+        position: relative;
+        left: -35px;
+        content: "✖";
+        }
+      </style>
     </head>
     <!-- END Head-->
 
@@ -13,7 +52,9 @@
             <div class="row vh-100 justify-content-between align-items-center">
                 <div class="col-12">
                     <form action="/registers" method="post" class="row row-eq-height lockscreen  mt-5 mb-5">
-                        
+                        <% if(message!=null) { %>
+                            <script>alert(`<%= message %>`)</script>
+                        <% } %>
                         <div class="login-form col-12 col-sm-12">
                             <h5>SIGN UP</h5>
                             <div class="form-group mb-3">
@@ -26,7 +67,14 @@
                           </div>
                             <div class="form-group mb-3">
                                 <label for="password">Password</label>
-                                <input class="form-control" type="password" required="" id="password" name="password" placeholder="Enter your password">
+                                <input class="form-control" type="password" required="" id="password" name="password" placeholder="Enter your password"  pattern="(?=.*\d)(?=.*[a-z])(?=.*[A-Z]).{8,}" title="Harus berisi setidaknya satu angka dan satu huruf besar dan kecil, dan setidaknya 8 karakter atau lebih">
+                                <div id="message">
+                                    <h6> Password harus terdiri dari: </h6>
+                                       <p id = "letter" class = "invalid"> Huruf <b> kecil </b> </p>
+                                       <p id = "capital" class = "invalid"> Huruf <b> KAPITAL (huruf besar) </b> </p>
+                                       <p id = "number" class = "invalid"> <b>Angka</b>(0-9) </p>
+                                       <p id = "length" class = "invalid"> Minimal <b> 8 karakter </b> </p>
+                                    </div>
                             </div>
 
                             <div class="form-group mb-0">
@@ -41,6 +89,54 @@
         </div>
         <!-- END: Content-->
         <%- include('./partials/foot'); %>
+        <script>
+            var myInput = document.getElementById("password");
+            var letter = document.getElementById("letter");
+            var capital = document.getElementById("capital");
+            var number = document.getElementById("number");
+            var length = document.getElementById("length");
+
+            myInput.onkeyup = function() {
+                // Validasi huruf kecil(lowercase)
+                var lowerCaseLetters = /[a-z]/g;
+                if(myInput.value.match(lowerCaseLetters)) {  
+                    letter.classList.remove("invalid");
+                    letter.classList.add("valid");
+                } else {
+                    letter.classList.remove("valid");
+                    letter.classList.add("invalid");
+                }
+                
+                // Validasi huruf kapital
+                var upperCaseLetters = /[A-Z]/g;
+                if(myInput.value.match(upperCaseLetters)) {  
+                    capital.classList.remove("invalid");
+                    capital.classList.add("valid");
+                } else {
+                    capital.classList.remove("valid");
+                    capital.classList.add("invalid");
+                }
+
+                // Validasi angka/number
+                var numbers = /[0-9]/g;
+                if(myInput.value.match(numbers)) {  
+                    number.classList.remove("invalid");
+                    number.classList.add("valid");
+                } else {
+                    number.classList.remove("valid");
+                    number.classList.add("invalid");
+                }
+                
+                // Validasi panjangnya
+                if(myInput.value.length >= 8) {
+                    length.classList.remove("invalid");
+                    length.classList.add("valid");
+                } else {
+                    length.classList.remove("valid");
+                    length.classList.add("invalid");
+                }
+                }
+        </script>
     </body>
     <!-- END: Body-->
 </html>

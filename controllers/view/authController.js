@@ -10,7 +10,7 @@ module.exports = {
   },
 
   register: (req, res) => {
-    res.render('register')
+    res.render('register',{ status: 200, message: null })
   },
 
   registerproses: (req, res, next) => {
@@ -23,7 +23,7 @@ module.exports = {
       }
     }).then(user => {
       if (user) {
-        res.status(400).render('errors/error', { status: 400, message: "Failed! Username is already in use!" })
+        res.status(400).render('register', { status: 400, message: "Failed! Username is already in use!" })
         return;
       }
       // Email
@@ -33,7 +33,7 @@ module.exports = {
         }
       }).then(user => {
         if (user) {
-          res.status(400).render('errors/error', { status: 400, message: "Failed! Email is already in use!" })
+          res.status(400).render('register', { status: 400, message: "Failed! Email is already in use!" })
           return;
         }
         UserGames.create({

@@ -382,7 +382,7 @@ END CONFIG STYLES
                                                                                     </td>
                                                                                 </tr>
                                                                                 <tr>
-                                                                                    <td class="esd-block-button es-p25b" align="center"><span class="es-button-border" style="background: #fafafa none repeat scroll 0% 0%;"><a href="http://localhost:3000/" class="es-button" target="_blank" style="background: #fafafa none repeat scroll 0% 0%; border-color: #fafafa;">Sign In »</a></span></td>
+                                                                                    <td class="esd-block-button es-p25b" align="center"><span class="es-button-border" style="background: #fafafa none repeat scroll 0% 0%;"><a href="https://bejs-chapter08.herokuapp.com" class="es-button" target="_blank" style="background: #fafafa none repeat scroll 0% 0%; border-color: #fafafa;">Sign In »</a></span></td>
                                                                                 </tr>
                                                                             </tbody>
                                                                         </table>
