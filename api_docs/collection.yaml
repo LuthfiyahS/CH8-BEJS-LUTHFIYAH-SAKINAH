@@ -30,7 +30,7 @@ paths:
               type: object
               example:
                 username: admin1
-                password: pia
+                password: piapwd01
       responses:
         '200':
           description: Successful response
@@ -48,7 +48,7 @@ paths:
               type: object
               example:
                 username: admin1
-                password: pia
+                password: piapwd01
                 email: febriyantokalny28@gmail.com
                 role_id: 1
       responses:

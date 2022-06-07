@@ -8,7 +8,7 @@ module.exports = {
     for (let i = 0; i < 10; i++) {
       let email = 'pia'+i+Math.floor(Math.random() * 2)+1+'@gmail.com';
       let fullName = 'Pia'+i+Math.floor(Math.random() * 2)+1;
-      let password = 'pwd'
+      let password = 'piapwd01'
       let uid = uuidv4()
       let role = Math.floor(Math.random() * 2)+1;
       data.push({
