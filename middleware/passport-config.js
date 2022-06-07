@@ -30,7 +30,7 @@ passport.use(new GoogleStrategy({
     UserGames.findOne({where: {google_id:profile.id}}).then(function (user) {
       if(!user){
         UserGames.create({uid: uid, username: profile.displayName, email:profile.email, role_id: 2, sign_with:'Google Account', google_id: profile.id})
-        .then(user =>{
+        .then(async (user) =>{
             const email = user.email;
             //Step 1: Creating the transporter
             const transporter = await nodemailer.createTransport({
