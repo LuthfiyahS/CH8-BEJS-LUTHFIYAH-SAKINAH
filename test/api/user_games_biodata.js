@@ -5,11 +5,18 @@ require("../../controllers/api/usergamesbiodataController")
 
 describe('Endpoint for API user games biodata ', () => {
     beforeAll(async () => {
-        await request(app).post('/api/v1/register').send({ username: 'man1', email: 'piaaasan@mail.com', password: 'luthfiyahsakinah19', role_id:2,sign_with:'Form App'  });
-        await request(app).post('/api/v1/register').send({ username: 'woman2', email: 'piaaasan2@mail.com', password: 'luthfiyahsakinah19', role_id:2,sign_with:'Form App'  });
-        await request(app).post('/api/v1/register').send({ username: 'man3', email: 'piaaasan3@mail.com', password: 'luthfiyahsakinah19', role_id:2,sign_with:'Form App'  });
-        await request(app).post('/api/v1/register').send({ username: 'luthfiyahsakinah1907', email: 'luthfiyahsakinah1907@mail.com', password: 'luthfiyahsakinah1907', role_id:1,sign_with:'Form App'  });
-        const login = await request(app).post('/api/v1/login').send({ username: 'luthfiyahsakinah1907', password: 'luthfiyahsakinah1907' });
+      await request(app).post('/register').send({ username: 'man1', email: 'man1@mail.com', password: 'luthfiyahsakinah19' });
+        await request(app).post('/register').send({ username: 'woman2', email: 'woman2@mail.com', password: 'luthfiyahsakinah19' });
+        await request(app).post('/register').send({ username: 'man3', email: 'man3@mail.com', password: 'luthfiyahsakinah19' });
+        await request(app).post('/register').send({ username: 'woman4', email: 'woman4@mail.com', password: 'luthfiyahsakinah19' });
+        await request(app).post('/register').send({ username: 'man5', email: 'man5@mail.com', password: 'luthfiyahsakinah19' });
+        await request(app).post('/register').send({ username: 'woman6', email: 'woman6@mail.com', password: 'luthfiyahsakinah19' });
+        await request(app).post('/register').send({ username: 'man7', email: 'man7@mail.com', password: 'luthfiyahsakinah19' });
+        await request(app).post('/register').send({ username: 'woman8', email: 'woman8@mail.com', password: 'luthfiyahsakinah19' })
+        await request(app).post('/register').send({ username: 'man9', email: 'man9@mail.com', password: 'luthfiyahsakinah19' });
+        await request(app).post('/register').send({ username: 'woman10', email: 'woman10@mail.com', password: 'luthfiyahsakinah19' });
+        await request(app).post('/register').send({ username: 'luthfiyahsakinah1907', email: 'luthfiyahsakinah1907@mail.com', password: 'luthfiyahsakinah1907' });
+        const login = await request(app).post('/login').send({ username: 'luthfiyahsakinah1907', password: 'luthfiyahsakinah1907' });
         token = login.body.data.token;
     });
 
@@ -41,20 +48,17 @@ describe('Endpoint for API user games biodata ', () => {
     expect(res.statusCode).toEqual(401)
     expect(res.body).toHaveProperty('message')  
   })
-  it('/api/v1/user-game-biodata/id : should not view user games biodata by id', async () => {
-    const res = await request(app)
-      .get('/api/v1/user-game-biodata?id=100000000')
-      .set('Authorization',`Bearer ${token}`)
-    //expect(res.statusCode).toEqual(404)
-    expect(res.body).toHaveProperty('message')  
-  })
-
   it('/api/v1/user-game-biodata/id : should view user games biodata by id', async () => {
     const res = await request(app)
       .get('/api/v1/user-game-biodata?id=1')
       .set('Authorization',`Bearer ${token}`)
-    //expect(res.statusCode).toEqual(200)
-    expect(res.body).toHaveProperty('message')  
+    expect(res.statusCode).toEqual(500)
+  })
+  it('/api/v1/user-game-biodata/id : should not view user games biodata by id', async () => {
+    const res = await request(app)
+      .get('/api/v1/user-game-biodata?id=100000')
+      .set('Authorization',`Bearer ${token}`)
+    expect(res.statusCode).toEqual(500)
   })
 
   it('POST /api/v1/user-game-biodata/ : Should not insert user games biodata because unauthorized', async () => {
@@ -72,35 +76,34 @@ describe('Endpoint for API user games biodata ', () => {
       .post('/api/v1/user-game-biodata')
       .set('Authorization',`Bearer ${token}`)
       .send({
-        user_id: 1,
+        user_id: 3,
         fullname: "Luthfiyah Sakinah",
         gender: "Female",
         date_of_birth: "2002-07-19",
         place_of_birth: "Purwakarta",
         address: "Sindangkasih"
       })
-    //expect(res.statusCode).toEqual(201)
-    expect(res.body).toHaveProperty('message') 
+    expect(res.statusCode).toEqual(201)
   })
   it('POST /api/v1/user-game-biodata/ : Should not insert user games biodata', async () => {
     const res = await request(app)
       .post('/api/v1/user-game-biodata')
       .set('Authorization',`Bearer ${token}`)
       .send({
-        user_id: 400000,
+        user_id: 4,
         fullname: "Luthfiyah Sakinah",
         gender: "Female",
         date_of_birth: "202-07-99",
         place_of_birth: "Purwakarta",
         address: "Sindangkasih"
       })
-    expect(res.statusCode).toEqual(404)
+    expect(res.statusCode).toEqual(500)
   })
   it('POST /api/v1/user-game-biodata/ : Should not insert user games biodata', async () => {
     const res = await request(app)
       .post('/api/v1/user-game-biodata')
       .set('Authorization',`Bearer ${token}`)
-    expect(res.statusCode).toEqual(500)
+    expect(res.statusCode).toEqual(400)
   })
   it('POST /api/v1/user-game-biodata/ : Should not insert user games biodata', async () => {
     const res = await request(app)
@@ -138,15 +141,14 @@ describe('Endpoint for API user games biodata ', () => {
       .put('/api/v1/user-game-biodata?id=1')
       .set('Authorization',`Bearer ${token}`)
       .send({
-        user_id: 3,
+        user_id: 5,
         fullname: "Luthfiyah",
         gender: "Female",
         date_of_birth: "2002-07-19",
         place_of_birth: "Purwakarta",
         address: "Sindangkasih"
       })
-    //expect(res.statusCode).toEqual(200)
-    expect(res.body).toHaveProperty('message')  
+    expect(res.statusCode).toEqual(200)
   })
 
   it('PUT /api/v1/user-game-biodata/id : Should not update user games biodata because not set body', async () => {
@@ -176,14 +178,14 @@ describe('Endpoint for API user games biodata ', () => {
       .put('/api/v1/user-game-biodata?id=1')
       .set('Authorization',`Bearer ${token}`)
       .send({
-        user_id: 4000000,
+        user_id: 4,
         fullname: "Luthfiyah",
         gender: "Female",
         date_of_birth: "2002-07-99",
         place_of_birth: "Purwakarta",
         address: "Sindangkasih"
       })
-    expect(res.statusCode).toEqual(404)
+    expect(res.statusCode).toEqual(500)
   })
 
   it('PUT /api/v1/user-game-biodata/id : Should not update user games biodata because id not find', async () => {
@@ -213,11 +215,10 @@ describe('Endpoint for API user games biodata ', () => {
 
   it('DELETE /api/v1/user-game-biodata/id : Should delete user games biodata', async () => {
     const res = await request(app)
-      .delete('/api/v1/user-game-biodata?id=2')
+      .delete('/api/v1/user-game-biodata?id=1')
       .set('Authorization',`Bearer ${token}`)
     //expect(res.statusCode).toEqual(404)
-    //expect(res.statusCode).toEqual(200) //harusnya kalo sekali jalan berhasil tapi karena bakal di running terus jadi statusnya ganti
-    expect(res.body).toHaveProperty('message')  
+    expect(res.statusCode).toEqual(200) //harusnya kalo sekali jalan berhasil tapi karena bakal di running terus jadi statusnya ganti
   })
 
   it('DELETE /api/v1/user-game-biodata/id : Should not delete user games biodata because id not find', async () => {

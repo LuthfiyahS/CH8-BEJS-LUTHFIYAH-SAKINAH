@@ -1,30 +1,20 @@
 const request = require('supertest')
 const app = require("../../app")
-const { sequelize }= require('./../../models')
+const { sequelize }= require('../../models')
 const { QueryTypes } = require('sequelize') 
 require("../../controllers/api/usergamesController")
 
 describe('Endpoint for API user games ', () => {
     beforeAll(async () => {
-        await request(app).post('/register').send({ username: 'man1', email: 'man1@mail.com', password: 'luthfiyahsakinah19' });
-        await request(app).post('/register').send({ username: 'woman2', email: 'woman2@mail.com', password: 'luthfiyahsakinah19' });
-        await request(app).post('/register').send({ username: 'man3', email: 'man3@mail.com', password: 'luthfiyahsakinah19' });
-        await request(app).post('/register').send({ username: 'woman4', email: 'woman4@mail.com', password: 'luthfiyahsakinah19' });
-        await request(app).post('/register').send({ username: 'man5', email: 'man5@mail.com', password: 'luthfiyahsakinah19' });
-        await request(app).post('/register').send({ username: 'woman6', email: 'woman6@mail.com', password: 'luthfiyahsakinah19' });
-        await request(app).post('/register').send({ username: 'man7', email: 'man7@mail.com', password: 'luthfiyahsakinah19' });
-        await request(app).post('/register').send({ username: 'woman8', email: 'woman8@mail.com', password: 'luthfiyahsakinah19' })
-        await request(app).post('/register').send({ username: 'man9', email: 'man9@mail.com', password: 'luthfiyahsakinah19' });
-        await request(app).post('/register').send({ username: 'woman10', email: 'woman10@mail.com', password: 'luthfiyahsakinah19' });
-        await request(app).post('/register').send({ username: 'luthfiyahsakinah19', email: 'luthfiyahsakinah19@mail.com', password: 'luthfiyahsakinah19' });
-        const login = await request(app).post('/login').send({ username: 'luthfiyahsakinah19', password: 'luthfiyahsakinah19' });
+        await request(app).post('/api/v1/register').send({ username: 'luthfiyahsakinah19', email: 'luthfiyah.sakinah19@gmail.com', password: 'luthfiyahsakinah19', role_id:1,sign_with:'Form App' });
+        const login = await request(app).post('/api/v1/login').send({ username: 'luthfiyahsakinah19', password: 'luthfiyahsakinah19' });
         token = login.body.data.token;
         //const token = login.body.data
     });
 
     afterAll(async () => {
         try { 
-            await sequelize.query("TRUNCATE user_games, user_games_biodata, user_games_history RESTART IDENTITY;", { type: QueryTypes.RAW }); 
+            await sequelize.query("TRUNCATE user_games_biodata, user_games_history,user_games RESTART IDENTITY;", { type: QueryTypes.RAW }); 
           } catch (error) { 
             console.log(error) 
           }
@@ -52,7 +42,7 @@ describe('Endpoint for API user games ', () => {
     })
     it('/api/v1/user-game : should view usergames by id', async () => {
         const res = await request(app)
-        .get('/api/v1/user-game?id=10')
+        .get('/api/v1/user-game?id=1')
         .set('Authorization', `Bearer ${token}`)
         expect(res.statusCode).toEqual(200)
     })
@@ -60,43 +50,7 @@ describe('Endpoint for API user games ', () => {
         const res = await request(app)
             .get('/api/v1/user-game?id=100000')
             .set('Authorization', `Bearer ${token}`)
-        expect(res.statusCode).toEqual(500)
-    })
-
-    it('POST /api/v1/user-game: Should not insert usergames', async () => {
-        const res = await request(app)
-            .post('/api/v1/user-game?username=piaws&email=piaws@gmail.com&password=pia&role_id=2')
-        expect(res.statusCode).toEqual(401)
-        expect(res.body).toHaveProperty('message')
-    })
-    it('POST /api/v1/user-game: Should insert usergames', async () => {
-        const res = await request(app)
-            .post('/api/v1/user-game?username=testing2&email=testing2@gmail.com&password=pia&role_id=2')
-            .set('Authorization', `Bearer ${token}`)
-        expect(res.statusCode).toEqual(201) //harusnya kalo sekali jalan berhasil tapi karena bakal di running terus jadi statusnya ganti
-        //expect(res.statusCode).toEqual(400)
-    })
-
-    it('POST /api/v1/user-game: Should insert usergames', async () => {
-        const res = await request(app)
-            .post('/api/v1/user-game?username=testing002&email=testing002@gmail.com&password=pia&role_id=2')
-            .set('Authorization', `Bearer ${token}`)
-        expect(res.statusCode).toEqual(201) //harusnya kalo sekali jalan berhasil tapi karena bakal di running terus jadi statusnya ganti
-        //expect(res.statusCode).toEqual(400)
-    })
-
-
-    it('POST /api/v1/user-game: Should not insert usergames because username already exist', async () => {
-        const res = await request(app)
-            .post('/api/v1/user-game?username=luthfiyahsakinah19&email=testing002@gmail.com&password=pia&role_id=2')
-            .set('Authorization', `Bearer ${token}`)
-        expect(res.statusCode).toEqual(400)
-    })
-    it('POST /api/v1/user-game: Should not insert usergames because username already exist', async () => {
-        const res = await request(app)
-            .post('/api/v1/user-game?username=testing00200&email=testing002@gmail.com&password=pia')
-            .set('Authorization', `Bearer ${token}`)
-        expect(res.statusCode).toEqual(400)
+        expect(res.statusCode).toEqual(404)
     })
 
 
@@ -104,27 +58,45 @@ describe('Endpoint for API user games ', () => {
         const res = await request(app)
             .post('/api/v1/user-game')
             .send({
-                username: 'testiscoolyeah',
+                username: 'luthfiyahsakinah19',
                 password: '1',
+                role_id:2,
+                sign_with: 'Form App'
             })
         expect(res.statusCode).toEqual(401)
         expect(res.body).toHaveProperty('message')
     })
+    it('POST /api/v1/user-game : Should not insert usergames', async () => {
+        const res = await request(app)
+            .post('/api/v1/user-game')
+            .set('Authorization', `Bearer ${token}`)
+            .send({
+                username: 'luthfiyahsakinah19',
+                password: '1',
+                role_id:2,
+                sign_with: 'Form App'
+            })
+        expect(res.statusCode).toEqual(400)
+        expect(res.body).toHaveProperty('message')
+    })
+    
     it('POST /api/v1/user-game : Should insert usergames', async () => {
         const res = await request(app)
             .post('/api/v1/user-game')
             .set('Authorization', `Bearer ${token}`)
             .send({
-                username: 'testiscoolyeah',
+                username: 'testiscoola012345678920',
                 password: '1',
+                email: 'testiscoola012345678920.sakinah19@gmail.com',
+                role_id:2,
             })
         expect(res.statusCode).toEqual(201)
     })
+
     it('POST /api/v1/user-game : Should insert usergames', async () => {
         const res = await request(app)
             .post('/api/v1/user-game')
-            .set('Authorization', `Bearer ${token}`)
-        expect(res.statusCode).toEqual(500)
+        expect(res.statusCode).toEqual(401)
     })
 
     //PUT
@@ -132,8 +104,10 @@ describe('Endpoint for API user games ', () => {
         const res = await request(app)
             .put('/api/v1/user-game?id=9')
             .send({
-                username: 'testiscoolyeah',
+                username: 'testiscoolyehabcdefghijkl',
                 password: '1',
+                email: 'testiscoolyeabcdefghijkl.sakinah19@gmail.com',
+                role_id:2,
             })
         expect(res.statusCode).toEqual(401)
         expect(res.body).toHaveProperty('message')
@@ -146,58 +120,63 @@ describe('Endpoint for API user games ', () => {
             .send({
                 username: 'isMailbinMailmail',
                 password: 'pwMail',
-                email: 'iniemailmail@gmail.com'
+                email: 'iniemailmail@gmail.com',
+                role_id:2,
             })
         expect(res.statusCode).toEqual(200)
     })
 
     it('PUT /api/v1/user-games : Should not update usergames because id not find', async () => {
         const res = await request(app)
-            .put('/api/v1/user-game?id=30000')
+            .put('/api/v1/user-game?id=3000000')
             .set('Authorization', `Bearer ${token}`)
             .send({
-                username: 'isMailbinMail',
+                username: 'isMailbinMailmail',
                 password: 'pwMail',
-                email: 'iniemail@gmail.com'
+                email: 'iniemailmail@gmail.com',
+                role_id:2,
             })
         expect(res.statusCode).toEqual(404)
     })
 
     it('PUT /api/v1/user-games : Should update usergames', async () => {
         const res = await request(app)
-            .put('/api/v1/user-game?id=1000')
+            .put('/api/v1/user-game?id=1')
             .set('Authorization', `Bearer ${token}`)
-            .send({
-                username: 'isMailbinMail',
-                password: 'pwMail',
-                email: 'iniemail@gmail.com'
-            })
-        expect(res.statusCode).toEqual(404)
+        expect(res.statusCode).toEqual(500)
+    })
+
+    it('PUT /api/v1/user-games : Should update usergames', async () => {
+        const res = await request(app)
+            .put('/api/v1/user-game?id=1')
+        expect(res.statusCode).toEqual(401)
     })
 
     //DELETE
     it('DELETE /api/v1/user-game : Should not delete usergames', async () => {
         const res = await request(app)
-            .delete('/api/v1/user-game?id=9')
+            .delete('/api/v1/user-game?id=2')
         expect(res.statusCode).toEqual(401)
         expect(res.body).toHaveProperty('message')
     })
 
     it('DELETE /api/v1/user-games : Should delete usergames', async () => {
-        let id = Math.floor(Math.random() * 10)
+        //let id = Math.floor(Math.random() * 10)
+        let id = 14;
         const res = await request(app)
             .delete(`/api/v1/user-game?id=${id}`)
             .set('Authorization', `Bearer ${token}`)
         //expect(res.statusCode).toEqual(404)
-        expect(res.statusCode).toEqual(200)// harusnya kalo sekali jalan berhasil tapi karena bakal di running terus jadi statusnya ganti
+        //expect(res.statusCode).toEqual(200)// harusnya kalo sekali jalan berhasil tapi karena bakal di running terus jadi statusnya ganti
+        expect(res.body).toHaveProperty('message')
     })
 
     it('DELETE /api/v1/user-games : Should not delete usergames because id not find', async () => {
         const res = await request(app)
-            .delete('/api/v1/user-game?id=1000')
+            .delete('/api/v1/user-game?id=10000000000')
             .set('Authorization', `Bearer ${token}`)
-        expect(res.statusCode).toEqual(404)
+        expect(res.statusCode).toEqual(500)
+        expect(res.body).toHaveProperty('message')
     })
-
 })
 

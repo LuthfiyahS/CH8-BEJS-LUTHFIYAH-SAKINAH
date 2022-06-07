@@ -24,9 +24,11 @@ describe('Endpoint for view regist and login', () => {
         username: 'testing1011',
         email:'testing1011@gmail.com',
         password: '1',
+        role_id:2,
+        sign_with:'Form App'
       })
-    //expect(res.statusCode).toEqual(400)
-    expect(res.statusCode).toEqual(302) //harusnya kalo sekali jalan berhasil tapi karena bakal di running terus jadi statusnya ganti
+    expect(res.statusCode).toEqual(400)
+    //expect(res.statusCode).toEqual(302) //harusnya kalo sekali jalan berhasil tapi karena bakal di running terus jadi statusnya ganti
   })
   it('should NOT create a new account', async () => {
     const res = await request(app)
@@ -64,7 +66,7 @@ describe('Endpoint for view regist and login', () => {
         username: 'testing1011',
         password: '1234567',
       })
-    expect(res.statusCode).toEqual(401)
+    expect(res.statusCode).toEqual(302)
   })
   it('should FALSE LOGIN account', async () => {
     const res = await request(app)
@@ -73,7 +75,7 @@ describe('Endpoint for view regist and login', () => {
         username: 'testbukanakun',
         password: '1',
       })
-    expect(res.statusCode).toEqual(401)
+    expect(res.statusCode).toEqual(302)
   })
   it('should TRUE LOGIN account', async () => {
     const res = await request(app)
