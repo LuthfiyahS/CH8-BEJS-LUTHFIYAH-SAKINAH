@@ -1,11 +1,7 @@
-# BEJS-4-LUTHFIYAH SAKINAH-CHALLENGE-7
+# BEJS-4-LUTHFIYAH SAKINAH-CHALLENGE-8
+Link deploy heroku [https://bejs-chapter07.herokuapp.com/ ](https://bejs-chapter08.herokuapp.com/)
 
-AUTH DAN MEDIA HANDLING
-Link deploy heroku https://bejs-chapter07.herokuapp.com/ 
-
-//Callback Google Oauth tidak di deploy di heroku masih local saja.
-
-## Getting started CH SEBELUMNYA
+## Getting started local
 
 Hi. Berikut panduan memulainya
 Install semua package yang dibutuhkan ya.
@@ -18,18 +14,15 @@ Install semua package yang dibutuhkan ya.
 7. lalu jika menjalankan API DOCS Swagger tinggal panggil http://localhost:3000/docs
 8. silahkan jalankan dan tes semua APInya.
 
-Fyi ada 2 tipe docs yang aku buat(satu satu dari swagger sama nge generate di postman), bisa cek line 22 dan 25 di file server.js jalanin salah satunya.
-
 ### URL API 
-#### Akses di postman atau bisa akses docnya http://localhost:3000/docs
+#### Akses di postman atau bisa akses docs swaggernya http://localhost:3000/docs
 http://localhost:3000/v1/api (with jwt integrated db) 
 
 ### URL VIEW
 #### Akses di browser 
-http://localhost:3000/v1/login (simply login not integrated db)
-http://localhost:3000/v1/view
+http://localhost:3000/
 
 Semangat!
 
-## Getting started CH SEKARANG
-Link deploy heroku https://bejs-chapter07.herokuapp.com/ 
+## Link Deploy
+Link deploy heroku [https://bejs-chapter07.herokuapp.com/ ](https://bejs-chapter08.herokuapp.com/)
