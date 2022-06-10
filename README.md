@@ -1,5 +1,5 @@
 # BEJS-4-LUTHFIYAH SAKINAH-CHALLENGE-8
-Link deploy heroku [https://bejs-chapter07.herokuapp.com/ ](https://bejs-chapter08.herokuapp.com/)
+Link deploy heroku https://bejs-chapter08.herokuapp.com
 
 ## Getting started local
 
@@ -25,4 +25,4 @@ http://localhost:3000/
 Semangat!
 
 ## Link Deploy
-Link deploy heroku [https://bejs-chapter07.herokuapp.com/ ](https://bejs-chapter08.herokuapp.com/)
+Link deploy heroku https://bejs-chapter08.herokuapp.com
